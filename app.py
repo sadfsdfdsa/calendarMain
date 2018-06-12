@@ -16,7 +16,7 @@ def index():
     data = Data
     months = {'January' : 31, 'February' : 30, 'March' : 31, 'April' : 30, 'May' : 31, 'June' : 30, 'July' : 31, 'August' : 31, 'September' : 30, 'October' : 31, 'November' : 30, 'December' : 31}
     days = months.get(data.month, 0)
-    return render_template('index.html', days=days, title=data.month, year=data.year, url=base_url)
+    return render_template('index.html', days=days, title=data.month, year=data.year, base_url=base_url)
 
 @app.route('/day', methods=['GET', 'POST'])
 def day():
@@ -57,7 +57,7 @@ def day():
     except:
         text="Заметок нет"
     conn.commit()
-    return render_template('day.html', data = data, text = text, url=base_url)
+    return render_template('day.html', data = data, text = text, base_url=base_url)
 
 if __name__ == '__main__':
     app.run()
