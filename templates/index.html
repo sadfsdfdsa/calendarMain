@@ -18,7 +18,7 @@
         th, td {
             height: 70px;
         }
-        td, option :hover {background-color: #f5f5f5;
+        td:hover {background-color: #f5f5f5;
         }
     </style>
     <script>
@@ -44,18 +44,15 @@
             var date = new Date();
             window.location.replace(base_url+'day'+'?'+'day='+(date.getDate()+1)+'&month='+months[date.getMonth()-1]+'&year='+date.getFullYear())
         }
-        function selectBlock() {
-            document.getElementById('month').size=12;
-        }
-        function selectNone() {
-            document.getElementById('month').size=2;
-        }
+
     </script>
 </head>
 <body>
     <form name = 'form' action="" method="get">
-        <select size="2" id='month' name="month" onmouseover="selectBlock()" onmouseout="selectNone()">
-             <option id="selecthover" disabled>Выберите месяц</option>
+        <select size="1" id='month' name="month"
+                onmouseover="document.getElementById('month').size=13; document.getElementById('month').style.position='absolute'"
+         onmouseout="document.getElementById('month').size=1">
+
              <option name="non" selected value="January">January</option>
              <option name="non" value="February">February</option>
              <option name="non" value="March">March</option>
@@ -68,13 +65,12 @@
             <option name="non" value="October">October</option>
             <option name="non" value="November">November</option>
             <option name="non" value="December">December</option>
-           </select>
-        <input type="text" name="year" placeholder="year / integer">
-        <button onclick="submit()">Submit</button>
+           </select><br>
+        <input  type="text" name="year" placeholder="year / integer">
+        <button  onclick="submit()">Submit</button>
     </form>
         <button onclick="today()">Today</button>
         <button onclick="tomorrow()">Tomorrow (now a last day of month)</button>
-        <p id="hide" style="display: none"></p>
 
     {% block content %}
         <table class ='main'><tr>
