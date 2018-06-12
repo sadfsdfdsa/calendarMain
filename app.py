@@ -4,7 +4,7 @@ import sqlite3
 
 
 app = Flask(__name__)
-base_url = 'http://127.0.0.1:5000/' ## поменять в day.html и index.html  {{ var base+_url }}
+base_url = 'http://127.0.0.1:5000/' ## поменять в day.html и index.html  TEST COMMIT
 
 @app.route('/kalend', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
