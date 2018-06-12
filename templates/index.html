@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+        <title> {{  title }}</title>
+    {% else %}
+         <title> Main page </title>
+    {% endif %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+        th, td {
+           border: 1px solid black;
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            height: 70px;
+        }
+        td, option :hover {background-color: #f5f5f5;
+        }
+    </style>
+    <script>
+        {%  if year  and title %}
+        year = {{ year }} ;
+        month = '{{ title }}';
+        {% endif %}
+        base_url = 'http://127.0.0.1:5000/';
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        function Redirect(id){
+            console.log(id);
+            window.location.replace(base_url+'day'+'?'+'day='+id+'&month='+month+'&year='+year)
+        }
+        function submit() {
+            console.log('submit');
+            window.location.replace(base_url+''+'?month=' + document.forms['form']['month'].value+'&year='+document.forms['form']['year'].value)
+        }
+        function today() {
+            var date = new Date();
+            window.location.replace(base_url+'day'+'?'+'day='+date.getDate()+'&month='+months[date.getMonth()-1]+'&year='+date.getFullYear())
+        }
+        function tomorrow() {
+            var date = new Date();
+            window.location.replace(base_url+'day'+'?'+'day='+(date.getDate()+1)+'&month='+months[date.getMonth()-1]+'&year='+date.getFullYear())
+        }
+        function selectBlock() {
+            document.getElementById('month').size=12;
+        }
+        function selectNone() {
+            document.getElementById('month').size=2;
+        }
+    </script>
+</head>
+<body>
+    <form name = 'form' action="" method="get">
+        <select size="2" id='month' name="month" onmouseover="selectBlock()" onmouseout="selectNone()">
+             <option id="selecthover" disabled>Выберите месяц</option>
+             <option name="non" selected value="January">January</option>
+             <option name="non" value="February">February</option>
+             <option name="non" value="March">March</option>
+             <option name="non" value="April">April</option>
+             <option name="non" value="May">May</option>
+             <option name="non" value="June">June</option>
+             <option name="non" value="July">July</option>
+             <option name="non" value="August">August</option>
+             <option name="non" value="September">September</option>
+            <option name="non" value="October">October</option>
+            <option name="non" value="November">November</option>
+            <option name="non" value="December">December</option>
+           </select>
+        <input type="text" name="year" placeholder="year / integer">
+        <button onclick="submit()">Submit</button>
+    </form>
+        <button onclick="today()">Today</button>
+        <button onclick="tomorrow()">Tomorrow (now a last day of month)</button>
+        <p id="hide" style="display: none"></p>
+
+    {% block content %}
+        <table class ='main'><tr>
+        {% for day in range(days) %}
+            <td id= {{ day+1 }}  onclick='Redirect(id)'> {{ day+1 }} {{ title }}</td>
+            {% if (day+1)%5==0 and day!=0 %}
+                </tr><tr>
+            {% endif %}
+        {% endfor %}
+            </tr>
+        </table>
+    {% endblock %}
+</body>
+</html>

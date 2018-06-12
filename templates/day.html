@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Day</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            base_url = 'http://127.0.0.1:5000/';
+            year = {{ data.year }} ;
+            month = '{{ data.month }}';
+            day = '{{ data.day}}';
+            function goBack() {
+                window.location.replace(base_url+'?month='+month+'&year='+year)
+            }
+            function goAdd() {
+                document.getElementById('inp').style.display='block';
+                document.getElementById('subm').style.display='block';
+                document.getElementById('base').style.display='none';
+                document.getElementById('change').style.display='none';
+            }
+            function goChange() {
+                window.location.replace(base_url+'day'+'?add=' + document.forms['inp1']['add'].value+'&year='+year+'&month='+month+'&day='+day);
+            }
+            function goDel() {
+                window.location.replace(base_url+'day'+'?del=True'+'&year='+year+'&month='+month+'&day='+day);
+            }
+            </script>
+    </head>
+    <body>
+        {% block content %}
+            <p> Day is {{ data.day  }} </p>
+            <p> {{ data.month }} </p>
+            <p> {{ data.year }}</p>
+            {% if text %}
+                <p>Заметки:</p>
+                <p id="base"> {{ text }}</p>
+            {% endif %}
+        {% endblock %}
+        <form name="inp1">
+        <input type="text" style="display: none" id="inp" name="add"></form>
+        <button style="display: none" id="subm" onclick="goChange()">Изменить</button>
+        <button onclick="goAdd()" id="change">Change inf</button>
+        <button onclick="goDel()" id="change">Delete</button>
+        <button onclick="goBack()">Go Back</button>
+    </body>
+</html>
