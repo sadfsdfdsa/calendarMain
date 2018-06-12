@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask import Flask
 import sqlite3
 
-
+# git add . ; git commit -m 'message' ; git push origin master
 app = Flask(__name__)
 base_url = 'http://127.0.0.1:5000/' ## поменять в day.html и index.html  TEST COMMIT1
 
